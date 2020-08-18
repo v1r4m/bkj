@@ -25,18 +25,14 @@ public class P1022{
     }
     public static void main(String[] args){
         Scanner sc = new Scanner(System.in);
-//        P1022 P = new P1022();
         int dy1 = sc.nextInt();
         int dx1 = sc.nextInt();
         int dy2 = sc.nextInt();
         int dx2 = sc.nextInt();
         sc.close();
-        //100 (-2,-4)
-        //1000 (9, -16)
         int digit = 0;
         int maximum = max(data(dx2,dy2),max(data(dx1, dy1), data(dx1, dy2)));
         digit = (int)(Math.log10(maximum)+1);
-//        int mileraw = 0;
         for(int y = dy1; y<dy2+1; y++){
             for(int x = dx1; x<dx2+1; x++){
                 String f = "%"+digit+"d";
