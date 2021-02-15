@@ -1,40 +1,55 @@
 import java.util.Scanner;
 import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.ArrayList;
+import java.util.Queue;
+import java.util.HashSet;
 import java.io.IOException;
+
+//failed. this code is O(N^logN)
+//you have to use segmented tree instead of this algorithm
 
 class P9426{
     private static int N;
     private static int K;
+    private static HashSet<Integer> set1 = new HashSet<Integer>();
+    private static HashSet<Integer> set2 = new HashSet<Integer>();
+
     public static void main(String[] args) throws IOException{
         Scanner sc = new Scanner(System.in);
         N = sc.nextInt();
         K = sc.nextInt();
-        int result = 0;
-        int tt = N-K+1;
-        int[][] arr = new int[tt][K];
-        for(int i = 0;i<K;i++){
-            int tmp = sc.nextInt();
-            for(int j = 0; j <i+1;j++){
-                arr[j][i-j]=tmp;
-            }
-        }
-        for(int i = K-1; i < N-K; i++){
+        int[] Karr = new int[K];
+        int[] Narr = new int[N];
+        for(int i = 0; i<K;i++){
             int tmp=sc.nextInt();
-            for(int j = 0 ; j <K;j++){
-                arr[i+j-1][K-j-1] = tmp;
-            }
+            Karr[i]=tmp;
+            Narr[i]=tmp;
         }
-        for(int i = 1; i<K;i++){ //7
-            int tmp = sc.nextInt();
-            for(int j =0;j<K-i;j++){
-                arr[tt-K+i+j][K-j-1] = tmp;
-            }
+        set2.
+        Arrays.sort(Karr);
+        for(int i = 0; i<K/2-1;i++){
+            set1.add(Karr[i]);
+        }
+        for(int i = K/2-1; i<K; i++){
+            set2.add(Karr[i]);
+        }
+        for(int i = K; i<N; i++){
+            Narr[i]=sc.nextInt();
+            int goIn = Narr[i];
+            int goOut = Narr[i-K];
         }
         sc.close();
-        for(int i = 0; i<tt; i++){
-            Arrays.sort(arr[i]);
-            result = result+arr[i][K/2];
+    }
+    public static int update(int goIn, int goOut){
+        if(goIn<set2.getFirst()&&goOut<set2.getFirst()){
+            return set2.getFirst();
         }
-        System.out.print(result);
+        else if(goIn>=set2.getFirst()&&goOut>=set2.getFirst()){
+            return set2.getFirst();
+        }
+
     }
 }
+
+
