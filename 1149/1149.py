@@ -28,36 +28,48 @@ for _ in range(n):
 # 그렇다면 직관적으로 아니고 수학적으로 생각해보면
 # BFS가 있을텐데
 
-tree = {}
-enum = [0,1,2]
-for i in range(n-1):
-    for j in range(3):
-        tree[(i,j)]=[(i+1,enum[(j-1)%3]),(i+1,enum[(j+1)%3])]
+# tree = {}
+# enum = [0,1,2]
+# for i in range(n-1):
+#     for j in range(3):
+#         tree[(i,j)]=[(i+1,enum[(j-1)%3]),(i+1,enum[(j+1)%3])]
 
-from queue import Queue
-# 초기 상태
-start_node = (0, 0, 0)
-queue = Queue()
-queue.put(start_node)
-visited = [[0 for _ in range(3)] for _ in range(n)]
-sum = []
+# from queue import Queue
+# # 초기 상태
+# start_node = (0, 0, 0)
+# queue = Queue()
+# queue.put(start_node)
+# visited = [[0 for _ in range(3)] for _ in range(n)]
+# sum = []
 
-# BFS 수행
-while not queue.empty():
-    current_node = queue.get()
-    i, j, current_cost = current_node
-    cost = current_cost+arr[i][j]
-    # 이웃한 노드를 큐에 추가
-    if i!=(n-1):
-        next = tree[(i,j)]
-        nextI, nextJ = next[0]
-        if visited[nextI][nextJ]==0:
-            queue.put((nextI, nextJ, cost))
-            visited[nextI][nextJ]=1
-        nextI, nextJ = next[1]
-        if visited[nextI][nextJ]==0:
-            queue.put((nextI, nextJ, cost))
-            visited[nextI][nextJ]=1
-    else:
-        sum.append(cost)
-print(min(sum))
+# # BFS 수행
+# while not queue.empty():
+#     current_node = queue.get()
+#     i, j, current_cost = current_node
+#     cost = current_cost+arr[i][j]
+#     # 이웃한 노드를 큐에 추가
+#     if i!=(n-1):
+#         next = tree[(i,j)]
+#         nextI, nextJ = next[0]
+#         if visited[nextI][nextJ]==0:
+#             queue.put((nextI, nextJ, cost))
+#             visited[nextI][nextJ]=1
+#         nextI, nextJ = next[1]
+#         if visited[nextI][nextJ]==0:
+#             queue.put((nextI, nextJ, cost))
+#             visited[nextI][nextJ]=1
+#     else:
+#         sum.append(cost)
+# print(min(sum))
+def min_cost(n, costs):
+    dp = [[0] * 3 for _ in range(n)]
+    dp[0] = costs[0]
+
+    for i in range(1, n):
+        dp[i][0] = costs[i][0] + min(dp[i - 1][1], dp[i - 1][2])
+        dp[i][1] = costs[i][1] + min(dp[i - 1][0], dp[i - 1][2])
+        dp[i][2] = costs[i][2] + min(dp[i - 1][0], dp[i - 1][1])
+    return min(dp[-1])
+
+result = min_cost(n, arr)
+print(result)
