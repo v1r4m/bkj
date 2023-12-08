@@ -48,7 +48,6 @@ class P9426{
         else if(goIn>=set2.getFirst()&&goOut>=set2.getFirst()){
             return set2.getFirst();
         }
-
     }
 }
 
