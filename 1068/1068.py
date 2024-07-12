@@ -1,6 +1,6 @@
 from sys import stdin as s
 
-# s = open("1068/input.txt", "rt")
+s = open("1068/input.txt", "rt")
 
 def traverse(tree, node):
     if len(tree[node])==0:
