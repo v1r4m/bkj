@@ -31,4 +31,3 @@ for item in b:
     alist = blist.copy()
 
 print(result)
-
